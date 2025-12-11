@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var args = process.argv.slice(2);
 console.log("Command line arguments:", args);
 var n_fibonacci = parseInt(args[0]);
@@ -68,6 +70,24 @@ var summarize = function (numbers) {
     }
     return sum;
 };
+function isPrime(n) {
+    if (n <= 1 || (n % 2 === 0 && n !== 2))
+        return false;
+    for (var i = 3; i < Math.sqrt(n); i += 2) {
+        if (n % i === 0)
+            return false;
+    }
+    return true;
+}
+var getPrimesTo = function (n, pos) {
+    var primes = [];
+    for (var i = 0; i < n || primes.length < pos; i++) {
+        if (isPrime(i)) {
+            primes.push(i);
+        }
+    }
+    return primes;
+};
 console.log(fibonacci(n_fibonacci));
 console.log(factorial(n_factorial));
 console.log(fibonacciSequence(n_fib_series));
@@ -76,3 +96,6 @@ console.log(palindromeWord(word));
 console.log(palindromeWordWithWhileAndArrow(word));
 console.log(countVowels(word));
 console.log(summarize(numberArray));
+console.log(isPrime(n_factorial));
+console.log(getPrimesTo(n_factorial, n_fib_series));
+console.log(getPrimesTo(n_factorial, n_fib_series)[Number(n_fib_series) - 1]);
