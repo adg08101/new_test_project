@@ -19,9 +19,7 @@ const fibonacciSequence = (n: number): number => {
   if (n <= 1) return 1;
 
   let start: number = 0;
-
   let fibonacci: number[] = [];
-
   let position: number = start + 1;
 
   fibonacci.push(start);
@@ -38,6 +36,7 @@ const fibonacciSequence = (n: number): number => {
 
 function reverseWord(word: string): string[] {
   let wordReversed: string = "";
+
   for (let i = word.length - 1; i >= 0; i--) {
     wordReversed += word[i];
   }
@@ -86,6 +85,28 @@ const summarize = (numbers: string): number => {
   return sum;
 };
 
+function isPrime(n: number): boolean {
+  if (n <= 1 || (n % 2 === 0 && n !== 2)) return false;
+
+  for (let i = 3; i < Math.sqrt(n); i += 2) {
+    if (n % i === 0) return false;
+  }
+
+  return true;
+}
+
+const getPrimesTo = (n: number, pos?: number): number[] => {
+  let primes: number[] = [];
+
+  for (let i = 0; i < n || primes.length < pos!; i++) {
+    if (isPrime(i)) {
+      primes.push(i);
+    }
+  }
+
+  return primes;
+};
+
 console.log(fibonacci(n_fibonacci));
 console.log(factorial(n_factorial));
 console.log(fibonacciSequence(n_fib_series));
@@ -94,3 +115,6 @@ console.log(palindromeWord(word));
 console.log(palindromeWordWithWhileAndArrow(word));
 console.log(countVowels(word));
 console.log(summarize(numberArray));
+console.log(isPrime(n_factorial));
+console.log(getPrimesTo(n_factorial, n_fib_series));
+console.log(getPrimesTo(n_factorial, n_fib_series)[Number(n_fib_series) - 1]);
