@@ -107,6 +107,23 @@ const getPrimesTo = (n: number, pos?: number): number[] => {
   return primes;
 };
 
+const bubbleSort = (arr: number[], order: "asc" | "desc" = "asc"): number[] => {
+  const result = [...arr];
+
+  for (let i = 0; i < result.length; i++) {
+    for (let j = 0; j < result.length - i - 1; j++) {
+      const shouldSwap =
+        order === "asc" ? result[j] > result[j + 1] : result[j] < result[j + 1];
+
+      if (shouldSwap) {
+        [result[j], result[j + 1]] = [result[j + 1], result[j]];
+      }
+    }
+  }
+
+  return result;
+}
+
 console.log(fibonacci(n_fibonacci));
 console.log(factorial(n_factorial));
 console.log(fibonacciSequence(n_fib_series));
@@ -118,3 +135,4 @@ console.log(summarize(numberArray));
 console.log(isPrime(n_factorial));
 console.log(getPrimesTo(n_factorial, n_fib_series));
 console.log(getPrimesTo(n_factorial, n_fib_series)[Number(n_fib_series) - 1]);
+console.log(bubbleSort(numberArray.split(" ").map(Number)));

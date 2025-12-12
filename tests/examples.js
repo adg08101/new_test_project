@@ -1,5 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var args = process.argv.slice(2);
 console.log("Command line arguments:", args);
 var n_fibonacci = parseInt(args[0]);
@@ -88,6 +95,20 @@ var getPrimesTo = function (n, pos) {
     }
     return primes;
 };
+var bubbleSort = function (arr, order) {
+    var _a;
+    if (order === void 0) { order = "asc"; }
+    var result = __spreadArray([], arr, true);
+    for (var i = 0; i < result.length; i++) {
+        for (var j = 0; j < result.length - i - 1; j++) {
+            var shouldSwap = order === "asc" ? result[j] > result[j + 1] : result[j] < result[j + 1];
+            if (shouldSwap) {
+                _a = [result[j + 1], result[j]], result[j] = _a[0], result[j + 1] = _a[1];
+            }
+        }
+    }
+    return result;
+};
 console.log(fibonacci(n_fibonacci));
 console.log(factorial(n_factorial));
 console.log(fibonacciSequence(n_fib_series));
@@ -99,3 +120,4 @@ console.log(summarize(numberArray));
 console.log(isPrime(n_factorial));
 console.log(getPrimesTo(n_factorial, n_fib_series));
 console.log(getPrimesTo(n_factorial, n_fib_series)[Number(n_fib_series) - 1]);
+console.log(bubbleSort(numberArray.split(" ").map(Number)));

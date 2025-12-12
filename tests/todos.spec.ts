@@ -25,9 +25,12 @@ test.describe("Juan another Todos test around", async () => {
       .getByRole("listitem")
       .filter({ hasText: tasksToAdd[2] })
       .getByLabel("Toggle Todo");
-
     // completed tasks link
     const completedLink = page.getByRole("link", { name: "Completed" });
+    // Task to delete locator
+    const taskToDelete = page
+      .getByRole("listitem")
+      .filter({ hasText: tasksToAdd[1] });
 
     for (let task of tasksToAdd) {
       await newTodo.fill(task);
@@ -35,17 +38,15 @@ test.describe("Juan another Todos test around", async () => {
     }
 
     await expect(listItems).toHaveCount(3);
-
     await activeLink.click();
-
     await expect(listItems).toHaveCount(3);
-
     await taskToComplete.click();
-
     await expect(listItems).toHaveCount(2);
-
     await completedLink.click();
-
+    await expect(listItems).toHaveCount(1);
+    await activeLink.click();
+    await taskToDelete.hover();
+    await taskToDelete.locator("button.destroy").click();
     await expect(listItems).toHaveCount(1);
   });
 
