@@ -42,7 +42,6 @@ test.describe("Testing around to practice some", () => {
     for (let i = 0; i < count; i++) {
       await blogs.nth(i).hover();
       await page.waitForTimeout(100);
-      console.log(await blogs.nth(i).textContent());
     }
 
     await expect(
