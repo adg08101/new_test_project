@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { Base } from "./pages/base";
 
 test.describe("Juan another Todos test around", async () => {
   test.beforeEach(async ({ page }) => {
@@ -48,6 +49,28 @@ test.describe("Juan another Todos test around", async () => {
     await taskToDelete.hover();
     await taskToDelete.locator("button.destroy").click();
     await expect(listItems).toHaveCount(1);
+  });
+
+  test("Add 3 task to Todo list with POM", async ({ page }) => {
+    const basePage = new Base(page);
+
+    for (let task of basePage.tasksToAdd) {
+      await basePage.newTodo.fill(task);
+      await basePage.newTodo.press("Enter");
+    }
+
+    await expect(basePage.listItems).toHaveCount(3);
+    await basePage.activeLink.click();
+    await expect(basePage.listItems).toHaveCount(3);
+    await basePage.taskToComplete.click();
+    await expect(basePage.listItems).toHaveCount(2);
+    await basePage.completedLink.click();
+    await expect(basePage.listItems).toHaveCount(1);
+    expect(await basePage.listItems.count()).toBe(1);
+    await basePage.activeLink.click();
+    await basePage.taskToDelete.hover();
+    await basePage.taskToDelete.locator("button.destroy").click();
+    await expect(basePage.listItems).toHaveCount(1);
   });
 
   test.afterEach(async ({ page }) => {
