@@ -11,9 +11,11 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@types/node": "^24.10.2"
+    "@types/node": "^24.10.2",
+    "dotenv": "^17.2.3"
   },
   "dependencies": {
+    "express": "^5.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
