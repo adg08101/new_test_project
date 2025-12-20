@@ -1,0 +1,1 @@
+npx playwright test "saeuy.spec.ts" -g "saeuy\s+E2E\s+Tests\s+\S+" --repeat-each=60 --workers=1
