@@ -2,7 +2,7 @@ import { test } from "@playwright/test";
 import dotenv from "dotenv";
 import { askChatGPT } from "../utils/openai";
 
-dotenv.config();
+dotenv.config({ override: true });
 
 test.describe("saeuy E2E Tests", () => {
   test.beforeEach(async ({ page }) => {
@@ -81,10 +81,13 @@ test.describe("saeuy E2E Tests", () => {
     await page.getByText("Acepto los términos", { exact: true }).click();
 
     const pregunta = await page.locator("#lblpreg_118080").innerText();
-    console.log("Pregunta ChatGPT:", pregunta);
-
     const respuesta = await askChatGPT(pregunta);
-    console.log("Respuesta ChatGPT:", respuesta);
+
+    await page.locator('[id="118080"]').fill(respuesta);
+
+    await page.getByRole("button", { name: "Siguiente " }).click();
+
+    await page.locator('[name="recurso_118050"]').check();
   });
 
   test.afterEach(async ({ page }) => {
