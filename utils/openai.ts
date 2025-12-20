@@ -16,7 +16,7 @@ export async function askChatGPT(question: string): Promise<string> {
         {
           role: "system",
           content:
-            "Respondé solo con la respuesta correcta, sin explicaciones.",
+            "Respondé solo con la respuesta correcta, sin explicaciones. Responda la pregunta sólo con números.",
         },
         {
           role: "user",

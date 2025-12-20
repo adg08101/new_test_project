@@ -12,12 +12,14 @@
   "devDependencies": {
     "@playwright/test": "^1.57.0",
     "@types/node": "^24.10.2",
-    "dotenv": "^17.2.3"
+    "@types/nodemailer": "^7.0.4",
+    "dotenv": "^17.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "express": "^5.2.1",
     "node-fetch": "^3.3.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "nodemailer": "^7.0.11"
   }
 }
