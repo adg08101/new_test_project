@@ -1,5 +1,6 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import dotenv from "dotenv";
+import { askChatGPT } from "../utils/openai";
 
 dotenv.config();
 
@@ -78,6 +79,12 @@ test.describe("saeuy E2E Tests", () => {
       .fill(process.env.GUB_PHONE!);
 
     await page.getByText("Acepto los términos", { exact: true }).click();
+
+    const pregunta = await page.locator("#lblpreg_118080").innerText();
+    console.log("Pregunta ChatGPT:", pregunta);
+
+    const respuesta = await askChatGPT(pregunta);
+    console.log("Respuesta ChatGPT:", respuesta);
   });
 
   test.afterEach(async ({ page }) => {
