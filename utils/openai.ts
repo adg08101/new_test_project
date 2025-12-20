@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ override: true });
 
 export async function askChatGPT(question: string): Promise<string> {
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -16,7 +16,7 @@ export async function askChatGPT(question: string): Promise<string> {
         {
           role: "system",
           content:
-            "Respondé solo con la respuesta correcta, sin explicaciones.",
+            "Respondé solo con la respuesta correcta, sin explicaciones. Responda la pregunta sólo con números.",
         },
         {
           role: "user",

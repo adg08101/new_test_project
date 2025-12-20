@@ -1,8 +1,9 @@
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import dotenv from "dotenv";
 import { askChatGPT } from "../utils/openai";
+import { sendEmail } from "../utils/sendEmail";
 
-dotenv.config();
+dotenv.config({ override: true });
 
 test.describe("saeuy E2E Tests", () => {
   test.beforeEach(async ({ page }) => {
@@ -80,15 +81,40 @@ test.describe("saeuy E2E Tests", () => {
 
     await page.getByText("Acepto los términos", { exact: true }).click();
 
-    const pregunta = await page.locator("#lblpreg_118080").innerText();
-    console.log("Pregunta ChatGPT:", pregunta);
-
+    const pregunta = (await page.locator("#lblpreg_118080").innerText()).concat(
+      " Responda la pregunta con números."
+    );
     const respuesta = await askChatGPT(pregunta);
-    console.log("Respuesta ChatGPT:", respuesta);
+
+    await page.locator('[id="118080"]').fill(respuesta);
+
+    await page.getByRole("button", { name: "Siguiente " }).click();
+
+    await page.locator('[name="recurso_118050"]').check();
+
+    // await page.waitForTimeout(5000);
+
+    const loc = page.locator("#sin_fechas_disponibles");
+
+    // await expect
+    //   .poll(async () => await loc.count(), {
+    //     timeout: 5000,
+    //     intervals: [1000, 2500, 4500],
+    //   })
+    //   .toBe(0);
+
+    await page.waitForLoadState("networkidle");
+
+    await expect(loc).toHaveCount(0);
+
+    await sendEmail({
+      to: process.env.SMTP_USER!,
+      subject: "Trámite SAEUY iniciado exitosamente",
+      text: `El trámite para ${process.env.GUB_TITULAR_NOMBRES} ${process.env.GUB_TITULAR_APELLIDOS} ha sido iniciado exitosamente.`,
+    });
   });
 
   test.afterEach(async ({ page }) => {
-    await page.pause();
-    console.log("All tests completed.");
+    await page.waitForTimeout(60_000);
   });
 });
