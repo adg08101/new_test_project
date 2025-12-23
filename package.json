@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc .\\tests\\examples.ts",
-    "node:ts": "node .\\tests\\examples.js"
+    "node:ts": "node .\\tests\\examples.js",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
