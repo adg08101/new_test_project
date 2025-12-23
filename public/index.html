@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Países de América – Población y partido en el poder</title>
@@ -8,27 +9,87 @@
       font-family: Arial, Helvetica, sans-serif;
       margin: 24px;
     }
+
     h1 {
       margin-bottom: 12px;
     }
+
     table {
       border-collapse: collapse;
       width: 100%;
     }
-    th, td {
+
+    th,
+    td {
       border: 1px solid #ccc;
       padding: 8px 10px;
       text-align: left;
     }
+
     th {
       background-color: #f2f2f2;
     }
+
     tr:nth-child(even) {
       background-color: #fafafa;
     }
+
+    #fecha {
+      display: block;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin: 0 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
+
 <body>
+
+  <label id="fecha"></label>
+
+  <div>
+    <button onclick="cambiarDia(-1)">Ayer</button>
+    <button onclick="irHoy()">Hoy</button>
+    <button onclick="cambiarDia(1)">Mañana</button>
+  </div>
+
+  <script>
+    let fechaActual = new Date();
+
+    function formatearFecha(fecha) {
+      const opciones = {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      };
+      return fecha.toLocaleDateString("es-ES", opciones);
+    }
+
+    function mostrarFecha() {
+      document.getElementById("fecha").textContent =
+        "Fecha seleccionada: " + formatearFecha(fechaActual);
+    }
+
+    function cambiarDia(dias) {
+      fechaActual.setDate(fechaActual.getDate() + dias);
+      mostrarFecha();
+    }
+
+    function irHoy() {
+      fechaActual = new Date();
+      mostrarFecha();
+    }
+
+    // Inicialización
+    mostrarFecha();
+  </script>
 
   <h1>Países de América</h1>
   <p>Población aproximada y partido político en el poder (actualidad).</p>
@@ -121,4 +182,5 @@
   </table>
 
 </body>
+
 </html>

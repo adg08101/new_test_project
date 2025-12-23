@@ -5,7 +5,7 @@ import { sendEmail } from "../utils/sendEmail";
 
 dotenv.config({ override: true });
 
-test.describe("saeuy E2E Tests", () => {
+test.describe("saeuy E2E Tests", async () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(process.env.GUB_TRAMITES_URL!);
     await page.waitForLoadState("networkidle");
