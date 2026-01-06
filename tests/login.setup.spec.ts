@@ -53,5 +53,5 @@ test("login gub.uy and save storage", async ({ page }) => {
   // 💾 Guardar sesión
   await page.context().storageState({ path: "auth.json" });
 
-  await page.waitForTimeout(30000); // --- IGNORE ---
+  // await page.waitForTimeout(30000); // --- IGNORE ---
 });
